@@ -1,24 +1,21 @@
-"use client"
-import { motion } from "framer-motion"
+"use client";
+import { motion } from "framer-motion";
+import Image, { StaticImageData } from "next/image";
 
 interface Technology {
-  name: string
-  icon: string
+  name: string;
+  icon: string | StaticImageData; // Updated to accept both string paths and imported images
 }
 
 interface MarqueeTechStackProps {
-  technologies: Technology[]
-  direction: "left" | "right"
+  technologies: Technology[];
+  direction: "left" | "right";
 }
 
-export default function MarqueeTechStack({ technologies, direction }: MarqueeTechStackProps) {
-  // In a real implementation, you would use actual tech icons
-  // Here we're using placeholders
-
-  const getIconUrl = (iconName: string) => {
-    return `/placeholder.svg?height=50&width=50&text=${iconName}`
-  }
-
+export default function MarqueeTechStack({
+  technologies,
+  direction,
+}: MarqueeTechStackProps) {
   return (
     <div className="relative overflow-hidden py-4">
       <div className="flex items-center gap-8">
@@ -36,21 +33,35 @@ export default function MarqueeTechStack({ technologies, direction }: MarqueeTec
             },
           }}
         >
-          {[...technologies, ...technologies, ...technologies].map((tech, index) => (
-            <div key={`${tech.name}-${index}`} className="flex flex-col items-center gap-2">
-              <div className="h-16 w-16 relative bg-background rounded-lg p-2 shadow-sm border flex items-center justify-center">
-                <img
-                  src={getIconUrl(tech.icon) || "/placeholder.svg"}
-                  alt={tech.name}
-                  className="h-10 w-10 object-contain"
-                />
+          {[...technologies, ...technologies, ...technologies].map(
+            (tech, index) => (
+              <div
+                key={`${tech.name}-${index}`}
+                className="flex flex-col items-center gap-2"
+              >
+                <div className="h-16 w-16 relative bg-background rounded-lg p-2 shadow-sm border flex items-center justify-center bg-white">
+                  {typeof tech.icon === "string" ? (
+                    <img
+                      src={tech.icon || "/placeholder.svg"}
+                      alt={tech.name}
+                      className="h-10 w-10 object-contain"
+                    />
+                  ) : (
+                    <Image
+                      src={tech.icon || "/placeholder.svg"}
+                      alt={tech.name}
+                      className="h-10 w-10 object-contain"
+                      width={40}
+                      height={40}
+                    />
+                  )}
+                </div>
+                <span className="text-sm font-medium">{tech.name}</span>
               </div>
-              <span className="text-sm font-medium">{tech.name}</span>
-            </div>
-          ))}
+            )
+          )}
         </motion.div>
       </div>
     </div>
-  )
+  );
 }
-

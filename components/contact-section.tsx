@@ -1,82 +1,98 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Github, Linkedin, Twitter, Mail, Send, CheckCircle } from "lucide-react"
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Github,
+  Linkedin,
+  Twitter,
+  Instagram,
+  Mail,
+  Send,
+  CheckCircle,
+} from "lucide-react";
 
 export default function ContactSection() {
   const [formState, setFormState] = useState({
     name: "",
     email: "",
     message: "",
-  })
+  });
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [errors, setErrors] = useState<Record<string, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validateForm = () => {
-    const newErrors: Record<string, string> = {}
+    const newErrors: Record<string, string> = {};
 
     if (!formState.name.trim()) {
-      newErrors.name = "Name is required"
+      newErrors.name = "Name is required";
     }
 
     if (!formState.email.trim()) {
-      newErrors.email = "Email is required"
+      newErrors.email = "Email is required";
     } else if (!/^\S+@\S+\.\S+$/.test(formState.email)) {
-      newErrors.email = "Email is invalid"
+      newErrors.email = "Email is invalid";
     }
 
     if (!formState.message.trim()) {
-      newErrors.message = "Message is required"
+      newErrors.message = "Message is required";
     }
 
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validateForm()) {
-      return
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    setIsSubmitting(false)
-    setIsSubmitted(true)
-    setFormState({ name: "", email: "", message: "" })
+    setIsSubmitting(false);
+    setIsSubmitted(true);
+    setFormState({ name: "", email: "", message: "" });
 
     // Reset submission status after 5 seconds
     setTimeout(() => {
-      setIsSubmitted(false)
-    }, 5000)
-  }
+      setIsSubmitted(false);
+    }, 5000);
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormState((prev) => ({ ...prev, [name]: value }))
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
 
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => {
-        const newErrors = { ...prev }
-        delete newErrors[name]
-        return newErrors
-      })
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
-  }
+  };
 
   return (
     <section id="contact" className="py-20">
@@ -98,7 +114,10 @@ export default function ContactSection() {
             <Card>
               <CardHeader>
                 <CardTitle>Send Me a Message</CardTitle>
-                <CardDescription>Fill out the form below and I'll get back to you as soon as possible.</CardDescription>
+                <CardDescription>
+                  Fill out the form below and I'll get back to you as soon as
+                  possible.
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -110,7 +129,9 @@ export default function ContactSection() {
                       onChange={handleChange}
                       className={errors.name ? "border-red-500" : ""}
                     />
-                    {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                    {errors.name && (
+                      <p className="text-red-500 text-sm">{errors.name}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -122,7 +143,9 @@ export default function ContactSection() {
                       onChange={handleChange}
                       className={errors.email ? "border-red-500" : ""}
                     />
-                    {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-sm">{errors.email}</p>
+                    )}
                   </div>
 
                   <div className="space-y-2">
@@ -134,10 +157,16 @@ export default function ContactSection() {
                       onChange={handleChange}
                       className={errors.message ? "border-red-500" : ""}
                     />
-                    {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
+                    {errors.message && (
+                      <p className="text-red-500 text-sm">{errors.message}</p>
+                    )}
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={isSubmitting || isSubmitted}>
+                  <Button
+                    type="submit"
+                    className="w-full"
+                    disabled={isSubmitting || isSubmitted}
+                  >
                     {isSubmitting ? (
                       <span className="flex items-center">
                         <svg
@@ -185,7 +214,9 @@ export default function ContactSection() {
             className="space-y-8"
           >
             <div>
-              <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+              <h3 className="text-xl font-semibold mb-4">
+                Contact Information
+              </h3>
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="bg-primary/10 p-3 rounded-full">
@@ -193,7 +224,7 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <p className="text-sm text-muted-foreground">Email</p>
-                    <p className="font-medium">hello@example.com</p>
+                    <p className="font-medium">andrewprathik@example.com</p>
                   </div>
                 </div>
               </div>
@@ -203,18 +234,33 @@ export default function ContactSection() {
               <h3 className="text-xl font-semibold mb-4">Connect With Me</h3>
               <div className="flex gap-4">
                 <Button variant="outline" size="icon" asChild>
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                  <a
+                    href="https://github.com/Andrew30Drew"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                  >
                     <Github className="h-5 w-5" />
                   </a>
                 </Button>
                 <Button variant="outline" size="icon" asChild>
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                  <a
+                    href="https://www.linkedin.com/in/prathikshan-andrew-rajendram-4a87b8234/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                  >
                     <Linkedin className="h-5 w-5" />
                   </a>
                 </Button>
                 <Button variant="outline" size="icon" asChild>
-                  <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                    <Twitter className="h-5 w-5" />
+                  <a
+                    href="https://www.instagram.com/_xxdrew_12/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
+                    <Instagram className="h-5 w-5" />
                   </a>
                 </Button>
               </div>
@@ -223,14 +269,14 @@ export default function ContactSection() {
             <div className="bg-muted p-6 rounded-lg">
               <h3 className="text-xl font-semibold mb-4">Availability</h3>
               <p className="text-muted-foreground">
-                I'm currently available for freelance work and open to discussing new opportunities. My typical response
-                time is within 24 hours.
+                I'm currently available for freelance work and open to
+                discussing new opportunities. My typical response time is within
+                24 hours.
               </p>
             </div>
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

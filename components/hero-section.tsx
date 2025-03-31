@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import me2 from "../public/me2.jpg";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
@@ -75,7 +74,7 @@ export default function HeroSection() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-purple-600 blur-3xl opacity-30 animate-pulse" />
               <div className="relative h-full w-full rounded-full overflow-hidden border-4 border-primary/20 shadow-xl">
                 <Image
-                  src={me2}
+                  src="/me2.jpg"
                   alt="John Doe"
                   fill
                   className="object-cover"

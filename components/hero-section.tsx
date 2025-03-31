@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import me2 from "../public/me2.jpg";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);

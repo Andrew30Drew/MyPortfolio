@@ -75,7 +75,7 @@ export default function HeroSection() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary to-purple-600 blur-3xl opacity-30 animate-pulse" />
               <div className="relative h-full w-full rounded-full overflow-hidden border-4 border-primary/20 shadow-xl">
                 <Image
-                  src="/me2.jpg"
+                  src={me2}
                   alt="John Doe"
                   fill
                   className="object-cover"
